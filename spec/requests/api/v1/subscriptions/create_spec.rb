@@ -36,4 +36,30 @@ describe "POST /subscriptions request" do
       expect(subscription[:attributes][:teas][1][:id]).to eq(tea_4.id)
     end
   end
+
+  describe "sad path" do
+    it "should return 400 with no customer id" do
+      tea_1 = Tea.create!(title: "Green", description: "It's Green", temperature: 120, brew_time: 240)
+      tea_2 = Tea.create!(title: "Earl Grey", description: "It's Grey", temperature: 120, brew_time: 240)
+      tea_3 = Tea.create!(title: "Black", description: "It's Black", temperature: 120, brew_time: 240)
+      tea_4 = Tea.create!(title: "English Breakfast", description: "It's English", temperature: 120, brew_time: 240)
+
+      params = {
+        title: "Monthly Subscription",
+        price: 19.99,
+        frequency: "Monthly",
+        teas: [tea_2.id, tea_4.id]
+      }
+
+      headers = {"CONTENT_TYPE" => "application/json"}
+
+      post "/api/v1/subscriptions", headers: headers, params: params.to_json
+
+      expect(response).to have_http_status(400)
+
+      response_body = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response_body[:data]).to have_key(:errors)
+    end
+  end
 end
