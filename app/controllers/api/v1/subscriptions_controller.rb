@@ -13,6 +13,20 @@ class Api::V1::SubscriptionsController < ApplicationController
     end
   end
 
+  def update
+    if params[:cancel]
+      if params[:cancel] == true
+        subscription = Subscription.find(params[:id])
+        subscription.update(status: 1)
+        render json: SubscriptionSerializer.new(subscription)
+      else
+        render json: {errors: "You must send a param of cancel with a value of either true or false"}, status: 400
+      end
+    else
+      render json: {errors: "You must send a param of cancel with a value of either true or false"}, status: 400
+    end
+  end
+
   private
 
   def subscription_params
