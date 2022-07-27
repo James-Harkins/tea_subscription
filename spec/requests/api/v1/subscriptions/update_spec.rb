@@ -13,11 +13,11 @@ describe "POST /subscriptions request" do
       subscription_1 = customer.subscriptions.create!(title: "Tony's Monthly Subscriptions", price: 19.99, frequency: 0)
       subscription_2 = customer.subscriptions.create!(title: "Tony's Quarterly Subscriptions", price: 49.99, frequency: 1)
 
-      subscription_tea_1 = subscription_1.subscription_teas.create!(tea_1)
-      subscription_tea_2 = subscription_1.subscription_teas.create!(tea_3)
-      subscription_tea_3 = subscription_1.subscription_teas.create!(tea_4)
-      subscription_tea_4 = subscription_2.subscription_teas.create!(tea_2)
-      subscription_tea_5 = subscription_3.subscription_teas.create!(tea_3)
+      subscription_tea_1 = subscription_1.subscription_teas.create!(tea: tea_1)
+      subscription_tea_2 = subscription_1.subscription_teas.create!(tea: tea_3)
+      subscription_tea_3 = subscription_1.subscription_teas.create!(tea: tea_4)
+      subscription_tea_4 = subscription_2.subscription_teas.create!(tea: tea_2)
+      subscription_tea_5 = subscription_2.subscription_teas.create!(tea: tea_3)
 
       params = {
         cancel: true
@@ -51,11 +51,11 @@ describe "POST /subscriptions request" do
       subscription_1 = customer.subscriptions.create!(title: "Tony's Monthly Subscriptions", price: 19.99, frequency: 0)
       subscription_2 = customer.subscriptions.create!(title: "Tony's Quarterly Subscriptions", price: 49.99, frequency: 1)
 
-      subscription_tea_1 = subscription_1.subscription_teas.create!(tea_1)
-      subscription_tea_2 = subscription_1.subscription_teas.create!(tea_3)
-      subscription_tea_3 = subscription_1.subscription_teas.create!(tea_4)
-      subscription_tea_4 = subscription_2.subscription_teas.create!(tea_2)
-      subscription_tea_5 = subscription_3.subscription_teas.create!(tea_3)
+      subscription_tea_1 = subscription_1.subscription_teas.create!(tea: tea_1)
+      subscription_tea_2 = subscription_1.subscription_teas.create!(tea: tea_3)
+      subscription_tea_3 = subscription_1.subscription_teas.create!(tea: tea_4)
+      subscription_tea_4 = subscription_2.subscription_teas.create!(tea: tea_2)
+      subscription_tea_5 = subscription_2.subscription_teas.create!(tea: tea_3)
 
       params = {
         frequency: "Yearly"
@@ -67,7 +67,8 @@ describe "POST /subscriptions request" do
 
       expect(response).to have_http_status(400)
 
-      expect(response[:errors]).to eq("You must send a param of cancel with a value of either true or false")
+      response_body = JSON.parse(response.body, symbolize_names: true)
+      expect(response_body[:errors]).to eq("You must send a param of cancel with a value of either true or false")
     end
 
     it "should return a 400 error if cancel params do not equal either true or false" do
@@ -81,11 +82,11 @@ describe "POST /subscriptions request" do
       subscription_1 = customer.subscriptions.create!(title: "Tony's Monthly Subscriptions", price: 19.99, frequency: 0)
       subscription_2 = customer.subscriptions.create!(title: "Tony's Quarterly Subscriptions", price: 49.99, frequency: 1)
 
-      subscription_tea_1 = subscription_1.subscription_teas.create!(tea_1)
-      subscription_tea_2 = subscription_1.subscription_teas.create!(tea_3)
-      subscription_tea_3 = subscription_1.subscription_teas.create!(tea_4)
-      subscription_tea_4 = subscription_2.subscription_teas.create!(tea_2)
-      subscription_tea_5 = subscription_3.subscription_teas.create!(tea_3)
+      subscription_tea_1 = subscription_1.subscription_teas.create!(tea: tea_1)
+      subscription_tea_2 = subscription_1.subscription_teas.create!(tea: tea_3)
+      subscription_tea_3 = subscription_1.subscription_teas.create!(tea: tea_4)
+      subscription_tea_4 = subscription_2.subscription_teas.create!(tea: tea_2)
+      subscription_tea_5 = subscription_2.subscription_teas.create!(tea: tea_3)
 
       params = {
         cancel: "update to true"
@@ -97,7 +98,8 @@ describe "POST /subscriptions request" do
 
       expect(response).to have_http_status(400)
 
-      expect(response[:errors]).to eq("You must send a param of cancel with a value of either true or false")
+      response_body = JSON.parse(response.body, symbolize_names: true)
+      expect(response_body[:errors]).to eq("You must send a param of cancel with a value of either true or false")
     end
   end
 end
