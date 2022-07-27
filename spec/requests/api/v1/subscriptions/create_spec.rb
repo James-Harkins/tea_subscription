@@ -59,7 +59,33 @@ describe "POST /subscriptions request" do
 
       response_body = JSON.parse(response.body, symbolize_names: true)
 
-      expect(response_body[:data]).to have_key(:errors)
+      expect(response_body).to have_key(:errors)
+    end
+
+    it "should return 400 with no teas" do
+      customer = Customer.create!(first_name: "Tony", last_name: "Soprano", email: "gabagool@gmail.com", address: "North Jersey")
+      tea_1 = Tea.create!(title: "Green", description: "It's Green", temperature: 120, brew_time: 240)
+      tea_2 = Tea.create!(title: "Earl Grey", description: "It's Grey", temperature: 120, brew_time: 240)
+      tea_3 = Tea.create!(title: "Black", description: "It's Black", temperature: 120, brew_time: 240)
+      tea_4 = Tea.create!(title: "English Breakfast", description: "It's English", temperature: 120, brew_time: 240)
+
+      params = {
+        customer_id: customer.id,
+        title: "Monthly Subscription",
+        price: 19.99,
+        frequency: "Monthly",
+        teas: []
+      }
+
+      headers = {"CONTENT_TYPE" => "application/json"}
+
+      post "/api/v1/subscriptions", headers: headers, params: params.to_json
+
+      expect(response).to have_http_status(400)
+
+      response_body = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response_body).to have_key(:errors)
     end
   end
 end

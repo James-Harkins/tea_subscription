@@ -1,8 +1,16 @@
 class Api::V1::SubscriptionsController < ApplicationController
   def create
-    subscription = Subscription.create!(subscription_params)
-    SubscriptionTea.create_multiple(subscription.id, params[:teas])
-    render json: SubscriptionSerializer.new(subscription), status: :created
+    if params[:teas].empty?
+      render json: {errors: "subscription must have at least one tea"}, status: 400
+    else
+      subscription = Subscription.new(subscription_params)
+      if subscription.save
+        SubscriptionTea.create_multiple(subscription.id, params[:teas])
+        render json: SubscriptionSerializer.new(subscription), status: :created
+      else
+        render json: {errors: subscription.errors.full_messages.to_sentence}, status: 400
+      end
+    end
   end
 
   private
