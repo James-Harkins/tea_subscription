@@ -21,16 +21,16 @@ describe "POST /subscriptions request" do
 
       post "/api/v1/subscriptions", headers: headers, params: params.to_json
 
-      expect(response).to have_status(201)
+      expect(response).to have_http_status(201)
 
       response_body = JSON.parse(response.body, symbolize_names: true)
       subscription = response_body[:data]
 
-      expect(subscription[:id]).to be_an Integer
       expect(subscription[:type]).to eq("subscription")
       expect(subscription[:attributes][:title]).to eq("Monthly Subscription")
       expect(subscription[:attributes][:price]).to eq(19.99)
       expect(subscription[:attributes][:frequency]).to eq("Monthly")
+      expect(subscription[:attributes][:status]).to eq("Active")
       expect(subscription[:attributes][:teas]).to be_an Array
       expect(subscription[:attributes][:teas][0][:id]).to eq(tea_2.id)
       expect(subscription[:attributes][:teas][1][:id]).to eq(tea_4.id)
