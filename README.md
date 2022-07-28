@@ -1,4 +1,4 @@
-# Swolify - Back End
+Tea Subscription Service
 
 ## Overview
 
@@ -17,12 +17,12 @@ This endpoint is used to create a new subscription. It requires the following pa
 Example Params:
 
 ```
-params = {
-   customer_id: customer.id,
-   title: "Monthly Subscription",
-   price: 19.99,
-   frequency: "Monthly",
-   teas: [tea_2.id, tea_4.id]
+{
+   "customer_id": 1,
+   "title": "Monthly Subscription",
+   "price": 19.99,
+   "frequency": "Monthly",
+   "teas": [2, 4]
 }
 ```
 
@@ -70,7 +70,7 @@ This endpoint is used to update an existing subscription. It requires the parame
 Example Params:
 
 ```
-params = {
+{
    cancel: true
 }
 ```
