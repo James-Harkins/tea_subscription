@@ -1,7 +1,7 @@
 class Api::V1::SubscriptionsController < ApplicationController
   def create
     if params[:teas].empty?
-      render json: {errors: "subscription must have at least one tea"}, status: 400
+      render json: {errors: "Subscription must have at least one tea"}, status: 400
     else
       subscription = Subscription.new(subscription_params)
       if subscription.save
