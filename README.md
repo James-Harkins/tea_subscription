@@ -10,7 +10,7 @@ This is the back end app for a hypothetical Tea Subscription app, built in Ruby 
 
 ## Endpoints
 
-`POST /subscriptions`
+### `POST /subscriptions`
 
 This endpoint is used to create a new subscription. It requires the following parameters: `customer_id`, `title`, `price`, `frequency` and `teas`, which should contain the `id`s for whichever teas the user wishes to subscribe to:
 
@@ -63,7 +63,7 @@ Response:
 }
 ```
 
-`PATCH /subscriptions/:id`
+### `PATCH /subscriptions/:id`
 
 This endpoint is used to update an existing subscription. It requires the parameter, `cancel`, which must be set to true, which sets the "status" value of that subscription to "canceled" in the database.
 
@@ -93,7 +93,7 @@ Response:
 }
 ```
 
-`GET /customers/:id/subscriptions`
+### `GET /customers/:id/subscriptions`
 
 This endpoint is used to return all of a given customer's subscriptions, whether active or canceled. It does not require any parameters beyond the `customer_id`, which should be included in the URI in the request.
 
