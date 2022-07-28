@@ -12,7 +12,7 @@ describe "GET /customer/:id/subscriptions request" do
       tea_4 = Tea.create!(title: "English Breakfast", description: "It's English", temperature: 120, brew_time: 240)
 
       subscription_1 = customer_1.subscriptions.create!(title: "Tony's Monthly Subscriptions", price: 19.99, frequency: 0)
-      subscription_2 = customer_1.subscriptions.create!(title: "Tony's Quarterly Subscriptions", price: 49.99, frequency: 1)
+      subscription_2 = customer_1.subscriptions.create!(title: "Tony's Quarterly Subscriptions", price: 49.99, frequency: 1, status: 1)
       subscription_3 = customer_2.subscriptions.create!(title: "Uncle Jun's Monthly Subscriptions", price: 29.99, frequency: 0)
 
       subscription_tea_1 = subscription_1.subscription_teas.create!(tea: tea_1)
