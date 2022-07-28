@@ -32,8 +32,8 @@ describe "GET /customer/:id/subscriptions request" do
       subscriptions = response_body[:data]
 
       expect(subscriptions.length).to eq(2)
-      expect(subscriptions[0][:teas].length).to eq(3)
-      expect(subscriptions[1][:teas].length).to eq(2)
+      expect(subscriptions[0][:attributes][:teas].length).to eq(3)
+      expect(subscriptions[1][:attributes][:teas].length).to eq(2)
     end
 
     it "should return an empty array if the customer has no subscriptions" do
@@ -92,10 +92,11 @@ describe "GET /customer/:id/subscriptions request" do
 
       get "/api/v1/customers/999999999999/subscriptions", headers: headers
 
-      expect(response).to have_http_status(400)
+      expect(response).to have_http_status(404)
 
       response_body = JSON.parse(response.body, symbolize_names: true)
-      expect(response_body[:errors]).to eq("Invalid customer ID")
+
+      expect(response_body[:error]).to eq("Couldn't find Customer with 'id'=999999999999")
     end
   end
 end
