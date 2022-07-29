@@ -10,7 +10,7 @@ This is the back end app for a hypothetical Tea Subscription app, built in Ruby 
 
 ## Setup
 
-To set up this repository locally, follow the below steps: 
+To set up this repository locally, follow the below instructions: 
 
 1. Fork this repository.
 2. Clone the repository to your local machine. 
