@@ -8,6 +8,16 @@ This is the back end app for a hypothetical Tea Subscription app, built in Ruby 
 
 * Expose an API for CRUD functionality for Customers, Subscriptions, and Teas in the database, to be consumed by a Front End App
 
+## Setup
+
+To set up this repository locally, follow the below steps: 
+
+1. Fork this repository.
+2. Clone the repository to your local machine. 
+3. Run `bundle install` in the command line. 
+4. Setup your database by running `rails db:{create,migrate,seed}` in the command line. 
+5. Check that tests are passing by running `bundle exec rspec` in the command line.
+
 ## Endpoints
 
 ### `POST /subscriptions`
