@@ -14,8 +14,8 @@ To set up this repository locally, follow the below instructions:
 
 1. Fork this repository.
 2. Clone the repository to your local machine. 
-3. Run `bundle install` in the command line. 
-4. Setup your database by running `rails db:{create,migrate,seed}` in the command line. 
+3. Setup your database by running `rails db:{create,migrate,seed}` in the command line.
+4. Run `bundle install` in the command line. 
 5. Check that tests are passing by running `bundle exec rspec` in the command line.
 
 ## Endpoints
